@@ -39,9 +39,14 @@ export class RegisterService {
 
   async update(id: string, updateRegisterDto: UpdateRegisterDto) {
 
-    const register = await this.registerRepository.update(id, updateRegisterDto)
+    await this.registerRepository.update(id, updateRegisterDto)
 
-    return  register;
+    const register = await this.registerRepository.findOne({
+      where: {id: id}, 
+      relations: ['candidate']
+    })
+
+    return register;
   }
 
   async remove(id: string) {
