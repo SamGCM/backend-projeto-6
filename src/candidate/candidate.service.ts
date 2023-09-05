@@ -23,7 +23,7 @@ export class CandidateService {
     return await this.candidateRepository.find();
   }
 
-  async findOne(id: number): Promise<Candidate> {
+  async findOne(id: string): Promise<Candidate> {
     const candidate = await this.candidateRepository.findOneByOrFail({
           id: id,
       })
@@ -31,14 +31,14 @@ export class CandidateService {
     return candidate;
   }
 
-  async update(id: number, updateCandidateDto: UpdateCandidateDto)  {
+  async update(id: string, updateCandidateDto: UpdateCandidateDto)  {
 
     const candidate = await this.candidateRepository.update(id, updateCandidateDto);
 
     return candidate;
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const candidate = await this.candidateRepository.delete(id);
 
     return candidate;

@@ -1,5 +1,5 @@
 export type TCandidate = {
-    id: number;
+    id: string;
 
     name: string;
     
