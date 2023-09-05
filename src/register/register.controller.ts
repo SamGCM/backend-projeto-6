@@ -19,16 +19,16 @@ export class RegisterController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.registerService.findOne(+id);
+    return this.registerService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateRegisterDto: UpdateRegisterDto) {
-    return this.registerService.update(+id, updateRegisterDto);
+    return this.registerService.update(id, updateRegisterDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.registerService.remove(+id);
+    return this.registerService.remove(id);
   }
 }

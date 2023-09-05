@@ -28,7 +28,7 @@ export class RegisterService {
     });
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const register = await this.registerRepository.findOne({
       where: {id: id}, 
       relations: ['candidate']
@@ -37,14 +37,14 @@ export class RegisterService {
     return register;
   }
 
-  async update(id: number, updateRegisterDto: UpdateRegisterDto) {
+  async update(id: string, updateRegisterDto: UpdateRegisterDto) {
 
     const register = await this.registerRepository.update(id, updateRegisterDto)
 
     return  register;
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const register = await this.registerRepository.delete(id);
 
     return register;
