@@ -1,3 +1,4 @@
+import { dataSourceOptions } from './../.docker/db/data-source';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -7,16 +8,11 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [CandidateModule, RegisterModule, DashboardModule, TypeOrmModule.forRoot({
-    type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: 'docker',
-    database: 'postgres',
-    autoLoadEntities: true,
-    synchronize: true
-  })],
+  imports: [
+    CandidateModule, 
+    RegisterModule, 
+    DashboardModule, 
+    TypeOrmModule.forRoot(dataSourceOptions)],
   controllers: [AppController],
   providers: [AppService],
 })
