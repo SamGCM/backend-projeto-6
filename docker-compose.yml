@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: .docker/entrypoint.sh
+    container_name: backend
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./backend-projeto-6:/src
+    depends_on:
+      - db
+
+  db:
+    build: .docker/postgres
+    container_name: postgres
+    restart: always
+    tty: true
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./src:/backend/src
+    environment:
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=postgres
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: postgres-pgadmin
+    tty: true
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
