@@ -5,12 +5,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    entrypoint: .docker/entrypoint.sh
     container_name: backend
     ports:
       - "3001:3000"
     volumes:
-      - ./backend-projeto-6:/src
+      - .:/app
+    entrypoint: .docker/entrypoint.sh
     depends_on:
       - db
 
