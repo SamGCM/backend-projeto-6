@@ -1,5 +1,6 @@
 import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import {v4 as uuidv4} from "uuid"
+import { ISkill } from "../interfaces/skills";
 @Entity('candidates')
 export class Candidate {
     @PrimaryGeneratedColumn('uuid')
@@ -22,6 +23,12 @@ export class Candidate {
 
     @Column()
     schooling: "Analfabeto" | "Fundamental Completo" | "Médio Incompleto" | "Médio Completo" | "Superior Completo" | "Superior Incompleto" | "Mestrado" | "Doutorado" | "Ignorado"
+
+    @Column()
+    function: string;
+
+    @Column()
+    listOfSkills: ISkill[];
 
     @BeforeInsert()
     generateId() {
