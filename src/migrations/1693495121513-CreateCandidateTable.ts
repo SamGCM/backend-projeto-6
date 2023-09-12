@@ -35,6 +35,14 @@ export class CreateCandidateTable1693495121513 implements MigrationInterface {
                     name: 'schooling',
                     type: 'varchar',
                 },
+                {
+                    name: 'function',
+                    type: 'varchar',
+                },
+                {
+                    name: 'listOfSkills',
+                    type: 'varchar',
+                },
             ]
         }))
     }
