@@ -15,10 +15,6 @@ export class CreateRegisterTable1693495102238 implements MigrationInterface {
                     name: 'status',
                     type: 'varchar',
                 },
-                // {
-                //     name: 'candidate',
-                //     type: 'uuid',
-                // },
             ]
         }))
     }

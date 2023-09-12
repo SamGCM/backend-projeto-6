@@ -4,8 +4,10 @@ import {
     IsEmail, 
     IsPhoneNumber, 
     IsDateString,
-    IsIn
+    IsIn,
+    IsArray
 } from "class-validator";
+import { ISkill } from "../interfaces/skills";
 
 const schoolings = ["Analfabeto" , "Fundamental Completo" , "Médio Incompleto" , "Médio Completo" , "Superior Completo" , "Superior Incompleto" , "Mestrado" , "Doutorado" , "Ignorado"]
 
@@ -27,4 +29,10 @@ export class CreateCandidateDto {
 
     @IsIn(schoolings)
     schooling: "Analfabeto" | "Fundamental Completo" | "Médio Incompleto" | "Médio Completo" | "Superior Completo" | "Superior Incompleto" | "Mestrado" | "Doutorado" | "Ignorado"
+
+    @IsString()
+    function: string;
+
+    @IsArray()
+    listOfSkills: ISkill[];
 }
