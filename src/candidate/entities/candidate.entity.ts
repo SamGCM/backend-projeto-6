@@ -27,7 +27,7 @@ export class Candidate {
     @Column()
     function: string;
 
-    @Column()
+    @Column("text", { array: true })
     listOfSkills: ISkill[];
 
     @BeforeInsert()
