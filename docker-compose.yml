@@ -13,6 +13,8 @@ services:
     entrypoint: .docker/entrypoint.sh
     depends_on:
       - db
+    networks:
+      - webnet
 
   db:
     build: .docker/postgres
@@ -22,10 +24,12 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./src:/backend/src
+      - pgdata:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=postgres
+    networks:
+      - webnet
   
   pgadmin:
     image: dpage/pgadmin4
@@ -38,3 +42,11 @@ services:
       - "8000:80"
     depends_on:
       - db
+    networks:
+      - webnet
+
+networks:
+  webnet:
+
+volumes:
+  pgdata:
