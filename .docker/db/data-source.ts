@@ -3,12 +3,12 @@ import { DataSourceOptions, DataSource } from "typeorm"
 export const dataSourceOptions: DataSourceOptions = {
     type: 'postgres',
     host: 'db',
+    port: 5432,
     username: 'postgres',
     password: 'docker',
     database: 'postgres',
     entities: ['dist/**/*.entity.js'],
     migrations: ['dist/src/migrations/*.js'],
-    synchronize: false
 }
 
 const dataSource = new DataSource(dataSourceOptions)
