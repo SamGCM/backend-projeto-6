@@ -1,9 +1,10 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateRegisterDto } from './dto/create-register.dto';
 import { UpdateRegisterDto } from './dto/update-register.dto';
 import { Register } from './entities/register.entity';
 import { Repository } from 'typeorm';
+import { Request } from 'express';
 
 @Injectable()
 export class RegisterService {
@@ -14,6 +15,19 @@ export class RegisterService {
   ){}
 
   create(createRegisterDto: CreateRegisterDto) {
+
+    const alreadyExist = this.registerRepository.find({
+      where: {
+          candidate: {
+            email: createRegisterDto.candidate.email
+          }
+      },
+    })
+
+    if(alreadyExist) {
+      throw new HttpException('Candidate already exist', HttpStatus.CONFLICT);
+    }
+
     const register = this.registerRepository.create({
       ...createRegisterDto,
       status: "Aguardando"
@@ -22,7 +36,19 @@ export class RegisterService {
     return this.registerRepository.save(register);
   }
 
-  async findAll() {
+  async findAll(request: Request) {
+
+    if(request.query.email) {
+      return await this.registerRepository.find({
+        relations: ['candidate'],
+        where: {
+            candidate: {
+              email: request.query.email as string,
+            }
+        },
+      })
+    }
+
     return await this.registerRepository.find({
       relations: ['candidate']
     });

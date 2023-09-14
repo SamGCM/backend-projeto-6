@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req } from '@nestjs/common';
 import { RegisterService } from './register.service';
 import { CreateRegisterDto } from './dto/create-register.dto';
 import { UpdateRegisterDto } from './dto/update-register.dto';
+import { Request } from 'express';
 
 @Controller('register')
 export class RegisterController {
@@ -13,8 +14,10 @@ export class RegisterController {
   }
 
   @Get()
-  findAll() {
-    return this.registerService.findAll();
+  findAll(
+    @Req() request: Request
+  ) {
+    return this.registerService.findAll(request);
   }
 
   @Get(':id')

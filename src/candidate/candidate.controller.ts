@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req } from '@nestjs/common';
 import { CandidateService } from './candidate.service';
 import { CreateCandidateDto } from './dto/create-candidate.dto';
 import { UpdateCandidateDto } from './dto/update-candidate.dto';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Candidate } from './entities/candidate.entity';
+import { Request } from 'express';
 
 @ApiTags('Candidatos')
 @Controller('candidate')
@@ -21,8 +22,10 @@ export class CandidateController {
   }
 
   @Get()
-  findAll() {
-    return this.candidateService.findAll();
+  findAll(
+    @Req() request: Request
+  ) {
+    return this.candidateService.findAll(request);
   }
 
   @Get(':id')
