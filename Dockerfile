@@ -12,4 +12,4 @@ RUN npm run build
 
 CMD [ "npm", "run", "start" ]
 
-EXPOSE 10000
+EXPOSE 4000
