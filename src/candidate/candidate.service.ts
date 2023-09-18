@@ -34,7 +34,9 @@ export class CandidateService {
   }
 
   private createCandidate(createCandidateDto: CreateCandidateDto) {
-    const candidate = this.candidateRepository.create(createCandidateDto);
+    const candidate = this.candidateRepository.create({
+      ...createCandidateDto,
+    });
     
     return this.candidateRepository.save(candidate);
   }
@@ -58,7 +60,20 @@ export class CandidateService {
       })
     }
 
-    return await this.candidateRepository.find();
+    const candidates = await this.candidateRepository.find();
+
+    const arr = candidates.map((candidate: any) => {
+      const { generateId, ...props } = candidate;
+
+
+      return {
+          ...props,
+          listOfSkills: JSON.parse(props.listOfSkills)
+        }
+      }
+    );
+
+    return arr;
   }
 
   async findOne(id: string): Promise<Candidate> {
@@ -71,7 +86,9 @@ export class CandidateService {
 
   async update(id: string, updateCandidateDto: UpdateCandidateDto)  {
 
-    const candidate = await this.candidateRepository.update(id, updateCandidateDto);
+    const candidate = await this.candidateRepository.update(id, {
+      ...updateCandidateDto
+    });
 
     return candidate;
   }
